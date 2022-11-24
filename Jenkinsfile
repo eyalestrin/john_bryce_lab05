@@ -75,7 +75,8 @@ pipeline {
             steps {
                 sh 'helm create myapp'
 //                sh 'cd myapp'
-//                sh 'pwd'
+                sh 'pwd'
+                sh 'echo $HOME'
 //                sh 'yq'
                 sleep 2
                 sh """'yq -i '"'"'.image.repository = \"$DOCKER_REGISTRY\"'"'"' ./myapp/values.yaml'"""
