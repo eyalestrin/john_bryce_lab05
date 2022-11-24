@@ -67,7 +67,8 @@ pipeline {
                 sh 'apt-get update'
                 sh 'apt-get install helm'
                 sh 'apt install wget'
-                sh 'wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64'
+//                sh 'wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64'
+                sh 'wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/tag/v4.27.3/yq_linux_amd64'
                 sh 'chmod a+x /usr/local/bin/yq'
             }
         }
@@ -80,8 +81,8 @@ pipeline {
                 sh 'ls -lh ./myapp/values.yaml'
 //                sh 'yq'
                 sleep 2
-//                sh """'yq -i '"'"'.image.repository = \"$DOCKER_REGISTRY\"'"'"' /home/jenkins/workspace/johnbryce-lab05/myapp/values.yaml'"""
-                sh """'yq r ./myapp/values.yaml '"'"'.image.repository = \"$DOCKER_REGISTRY\"'"'"' '"""
+                sh """'yq -i '"'"'.image.repository = \"$DOCKER_REGISTRY\"'"'"' /home/jenkins/workspace/johnbryce-lab05/myapp/values.yaml'"""
+//                sh """'yq r ./myapp/values.yaml '"'"'.image.repository = \"$DOCKER_REGISTRY\"'"'"' '"""
                 sh """'yq -i '"'"'.image.tag = \\\"${currentBuild.number}.0\\\"'"'"' ./myapp/values.yaml'"""
                 sleep 2
                 sh 'cat values.yaml'
