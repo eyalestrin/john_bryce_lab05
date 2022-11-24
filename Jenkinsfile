@@ -68,7 +68,7 @@ pipeline {
                 sh 'apt-get install helm'
                 sh 'apt install wget'
 //                sh 'wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64'
-                sh 'wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.27.3/yq_linux_amd64'
+                sh 'wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/3.3.1/yq_linux_amd64'
                 sh 'chmod a+x /usr/local/bin/yq'
             }
         }
