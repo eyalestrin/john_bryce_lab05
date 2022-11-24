@@ -77,7 +77,7 @@ pipeline {
 //                sh 'cd myapp'
 //                sh 'pwd'
                 sh 'yq'
-                sh """'yq -i '"'"'.image.repository = \\"$DOCKER_REGISTRY\\"'"'"' ./myapp/values.yaml'"""
+                sh """'yq -i '"'"'.image.repository = \"$DOCKER_REGISTRY\"'"'"' ./myapp/values.yaml'"""
                 sh """'yq -i \'.image.tag = \\\"${currentBuild.number}.0\\\"\' ./myapp/values.yaml'"""
                 sh 'cat values.yaml'
             }
