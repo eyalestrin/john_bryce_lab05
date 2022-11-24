@@ -80,7 +80,8 @@ pipeline {
                 sh 'ls -lh ./myapp/values.yaml'
 //                sh 'yq'
                 sleep 2
-                sh """'yq -i '"'"'.image.repository = \"$DOCKER_REGISTRY\"'"'"' /home/jenkins/workspace/johnbryce-lab05/myapp/values.yaml'"""
+//                sh """'yq -i '"'"'.image.repository = \"$DOCKER_REGISTRY\"'"'"' /home/jenkins/workspace/johnbryce-lab05/myapp/values.yaml'"""
+                sh """'yq r ./myapp/values.yaml '"'"'.image.repository = \"$DOCKER_REGISTRY\"'"'"' '"""
                 sh """'yq -i '"'"'.image.tag = \\\"${currentBuild.number}.0\\\"'"'"' ./myapp/values.yaml'"""
                 sleep 2
                 sh 'cat values.yaml'
