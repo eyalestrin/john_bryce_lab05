@@ -66,6 +66,7 @@ pipeline {
                 sh 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | tee /etc/apt/sources.list.d/helm-stable-debian.list'
                 sh 'apt-get update'
                 sh 'apt-get install helm'
+                sh 'apt install wget'
                 sh 'wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64'
                 sh 'chmod a+x /usr/local/bin/yq'
             }
