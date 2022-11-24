@@ -78,8 +78,8 @@ pipeline {
 //                sh 'pwd'
 //                sh 'yq'
                 sleep 2
-                sh """'yq -i '"'"'image.repository = \"$DOCKER_REGISTRY\"'"'"' ./myapp/values.yaml'"""
-                sh """'yq -i \'.image.tag = \\\"${currentBuild.number}.0\\\"\' ./myapp/values.yaml'"""
+                sh """'yq -i '"'"'.image.repository = \"$DOCKER_REGISTRY\"'"'"' ./myapp/values.yaml'"""
+                sh """'yq -i '"'"'.image.tag = \\\"${currentBuild.number}.0\\\"'"'"' ./myapp/values.yaml'"""
                 sleep 2
                 sh 'cat values.yaml'
             }
