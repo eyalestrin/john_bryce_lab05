@@ -76,7 +76,8 @@ pipeline {
                 sh 'helm create myapp'
 //                sh 'cd myapp'
                 sh 'pwd'
-                sh 'echo $HOME'
+//                sh 'echo $HOME'
+                sh 'ls -lh ./myapp/values.yaml'
 //                sh 'yq'
                 sleep 2
                 sh """'yq -i '"'"'.image.repository = \"$DOCKER_REGISTRY\"'"'"' ./myapp/values.yaml'"""
