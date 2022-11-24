@@ -75,8 +75,9 @@ pipeline {
             steps {
                 sh 'helm create myapp'
                 sh 'cd myapp'
-                sh """'yq -i \'.image.repository = \"$DOCKER_REGISTRY\"\' values.yaml'"""
-                sh """'yq -i \'.image.tag = \"${currentBuild.number}.0\"\' values.yaml'"""
+                sh 'pwd'
+                sh """'yq -i \'.image.repository = \"$DOCKER_REGISTRY\"\' ./values.yaml'"""
+                sh """'yq -i \'.image.tag = \"${currentBuild.number}.0\"\' ./values.yaml'"""
                 sh 'cat values.yaml'
             }
         }
