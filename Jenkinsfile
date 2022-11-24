@@ -22,7 +22,7 @@ pipeline {
         stage('SCM Step') {
             steps {
                 echo "Pulling code from GitHub"
-                git url: 'https://github.com/eyalestrin/john_bryce_lab03.git', branch: 'master'
+                git url: 'https://github.com/eyalestrin/john_bryce_lab05.git', branch: 'master'
             }
         }
         stage('Build Step') {
@@ -58,6 +58,15 @@ pipeline {
             steps {
                 sh (script : """docker push $DOCKER_REGISTRY:${currentBuild.number}.0""", returnStdout: false)
             }
-        } 
+        }
+        stage('Install Helm package') {
+            steps {
+                sh "curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null"
+                sh "sudo apt-get install apt-transport-https --yes"
+                sh "echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list"
+                sh "sudo apt-get update"
+                sh "sudo apt-get install helm"
+            }
+        }
     }
 }
