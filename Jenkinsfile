@@ -77,6 +77,7 @@ pipeline {
                 sh 'helm create myapp'
 //                sh 'cd myapp'
                 sh 'pwd'
+                sh 'echo $HOME'
 //                sh 'cat ./myapp/values.yaml'
 //                sh 'echo $HOME'
 //                sh 'ls -lh ./myapp/values.yaml'
