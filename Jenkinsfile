@@ -59,18 +59,24 @@ pipeline {
                 sh (script : """docker push $DOCKER_REGISTRY:${currentBuild.number}.0""", returnStdout: false)
             }
         }
-        stage('Install Helm package') {
+        stage('Install Helm package and yq') {
             steps {
-//                sh 'curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null'
-//                sh 'sudo apt-get install apt-transport-https --yes'
-//                sh 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list'
-//                sh 'sudo apt-get update'
-//                sh 'sudo apt-get install helm'
                 sh 'curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | tee /usr/share/keyrings/helm.gpg > /dev/null'
                 sh 'apt-get install apt-transport-https --yes'
                 sh 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | tee /etc/apt/sources.list.d/helm-stable-debian.list'
                 sh 'apt-get update'
                 sh 'apt-get install helm'
+                sh 'wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64'
+                sh 'chmod a+x /usr/local/bin/yq'
+            }
+        }
+        stage('Edit Helm chart') {
+            steps {
+                sh 'helm create myapp'
+                sh 'cd myapp'
+                sh 'yq -i \'.image.repository = "$DOCKER_REGISTRY"\' values.yaml'
+                sh 'yq -i \'.image.tag = "${currentBuild.number}.0"\' values.yaml'
+                sh 'cat values.yaml'
             }
         }
     }
