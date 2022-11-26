@@ -3,8 +3,6 @@ pipeline {
     parameters {
         string defaultValue: '300', name: 'INTERVAL'
         string defaultValue: 'us-east-1', name: 'REGION'
-//        String currentJobName = currentBuild.projectName
-//        String paramValue = getParamValue(currentJobName)
     }
     environment {
         AWS_CREDENTIALS = credentials('credentials')
@@ -73,14 +71,9 @@ pipeline {
         }
         stage('Edit Helm chart') {
             steps {
-//                sh 'pwd'
-//                sh 'echo $HOME'
-//                sh 'echo ${currentBuild.projectName}'
                 dir('/home/jenkins/workspace/john_bryce_lab05/myapp-helm/') {
                 sh (script : """ yq -i \'.image.repository = \"$DOCKER_REGISTRY\"\' values.yaml """, returnStdout: false)
                 sh (script : """ yq -i \'.image.tag = \"${currentBuild.number}.0\"\' values.yaml """, returnStdout: false)
-//                sh (script : """ cat values.yaml | grep repository """)
-//                sh (script : """ cat values.yaml | grep tag: """)
                 }
             }
         }
@@ -95,23 +88,11 @@ pipeline {
 				sh (script : """ git checkout master """)
 				sh (script : """ git add . """)
 				sh (script : """ git commit -m \"Updating Docker version ${currentBuild.number}.0\" """)
-//				sh 'git commit -am \\"Updating Docker version ${currentBuild.number}.0\\"'
 				sh (script : """ git push origin master """)
-//                		sh 'git push origin master'
 				}
 			}
 		}
            }
 	}
-//    }
-//}
-
-//    }
-//	post {
-//        always {
-//		    sh 'docker logout'
-//		}
-
-//}
-}
+    }
 }
