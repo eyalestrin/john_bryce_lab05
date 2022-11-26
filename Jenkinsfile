@@ -91,9 +91,10 @@ pipeline {
                 	withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')])
                 	sh 'git commit -am '"'"'Update Docker image to version ${currentBuild.number}.0'"'"''
                 	sh 'git push origin master'
-            	}
+		}
+           }
 	}
-    }
+//    }
 //}
 
 //    }
@@ -104,4 +105,4 @@ pipeline {
 
 //}
 }
-}
+//}
