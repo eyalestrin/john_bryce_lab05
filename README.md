@@ -106,7 +106,7 @@
 7. Login to the ArgoCD server:  
   http://[argocd_load-balancer_DNS_name]  
   Note: Replace **[argocd_load-balancer_DNS_name]** with the target load-balancer DNS address  
-8. Create a GitHub webhook, as instructed below:  
+8. Create a GitHub webhook, on the settings page of the current GitHub repository, as instructed below:  
   https://argo-cd.readthedocs.io/en/stable/operator-manual/webhook/#1-create-the-webhook-in-the-git-provider  
 
 ## Delete Amazon EKS Cluster
