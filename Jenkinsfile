@@ -3,13 +3,14 @@ pipeline {
     parameters {
         string defaultValue: '300', name: 'INTERVAL'
         string defaultValue: 'us-east-1', name: 'REGION'
+//        String currentJobName = currentBuild.projectName
+//        String paramValue = getParamValue(currentJobName)
     }
     environment {
         AWS_CREDENTIALS = credentials('credentials')
         DOCKER_REGISTRY = "eyales/johnbryce"
         DOCKERHUB_CREDENTIALS = credentials('dockerhub_id')
         dockerImage = ''
-        WORKSPACE_FOLDER = "john_bryce_lab05"
     }
     stages {
         stage('Init Cleanup') {
@@ -69,10 +70,11 @@ pipeline {
         }
         stage('Edit Helm chart') {
             steps {
-                sh 'pwd'
-                sh 'echo $HOME'
-//                dir('/home/jenkins/workspace/john_bryce_lab05/myapp-helm/') {
-                dir('/home/jenkins/workspace/\$WORKSPACE_FOLDER/myapp-helm/') {
+//                sh 'pwd'
+//                sh 'echo $HOME'
+                sh 'echo ${currentBuild.projectName}'
+                dir('/home/jenkins/workspace/john_bryce_lab05/myapp-helm/') {
+//                dir('/home/jenkins/workspace/\$WORKSPACE_FOLDER/myapp-helm/') {
                 sh (script : """ yq -i \'.image.repository = \"$DOCKER_REGISTRY\"\' values.yaml """, returnStdout: false)
                 sh (script : """ yq -i \'.image.tag = \"${currentBuild.number}.0\"\' values.yaml """, returnStdout: false)
 //                sh (script : """ cat values.yaml | grep repository """)
