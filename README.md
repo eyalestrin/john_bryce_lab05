@@ -103,11 +103,31 @@
   **<code>kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d</code>**  
 6. Get the ArgoCD load-balancer DNS name:  
   **<code>kubectl get svc argocd-server -n argocd</code>**  
-7. Login to the ArgoCD server:  
+7. Create a GitHub webhook, on the settings page of the current GitHub repository, as instructed below:  
+  https://argo-cd.readthedocs.io/en/stable/operator-manual/webhook/#1-create-the-webhook-in-the-git-provider  
+8. Login to the ArgoCD server:  
   https://[argocd_load-balancer_DNS_name]  
   Note: Replace **[argocd_load-balancer_DNS_name]** with the target load-balancer DNS address  
-8. Create a GitHub webhook, on the settings page of the current GitHub repository, as instructed below:  
-  https://argo-cd.readthedocs.io/en/stable/operator-manual/webhook/#1-create-the-webhook-in-the-git-provider  
+9. Create a Helm repository:  
+  * From the ArgoCD UI, Select **Settings -> Connect Repo**  
+  * Choose your connection method: Select **VIA HTTPS**  
+  * Type: **git**  
+  * Project: **default**  
+  * Repository URL: Specify your GIT repository (for example: https://github.com/eyalestrin/john_bryce_lab05.git)
+  * Click Connect
+  Note: The "Connection Status" should be "Successful"  
+10. Create an Application in Argo CD Defined By a Helm Chart:  
+  * From the ArgoCD UI, Select Applications  
+  * Click "New App"  
+  * Application Name: Specify here your target helm chart application name  
+  * Project Name: default  
+  * Repository URL: Select your previously configured GIT repo  
+  * Revision: HEAD  
+  * Path: Select your helm-chart path from the list  
+  * Cluster URL: Select the default value  
+  * Namespace: Specify your target helm-chart name  
+  * Click Create  
+  * Click Sync -> click on Synchronize  
 
 ## Delete Amazon EKS Cluster
 Follow the instructions below to delete the EKS cluster:  
