@@ -88,7 +88,17 @@
 4. Add a context for EKS cluster in Kube config of the machine:  
   **<code>aws eks --region us-east-1 update-kubeconfig --name my-eks-cluster</code>** 
 
-## ArgoCD...
+## ArgoCD
+1. Create a new namespace:  
+  **kubectl create namespace argocd**
+2. Install ArgCD using the command below:  
+  **kubectl apply n argocd f https://raw.githubusercontent.com/argoproj/argo cd/stable/manifests/install.yaml**
+3. Change the argocd services to type loadbalancer using kubectl PATCH:  
+  **kubectl patch svc argocd server n argocd p '{"spec": {"type": "LoadBalancer"}}'**
+4. Get the initial password (user is: **admin**):  
+  **kubectl get pods n argocd l app.kubernetes.io/name=argocd server o name | cut d'/' f 2**
+5. Create a GitHub webhook, as instructed below:  
+  https://argo-cd.readthedocs.io/en/stable/operator-manual/webhook/#1-create-the-webhook-in-the-git-provider
 
 ## Delete Amazon EKS Cluster
 Follow the instructions below to delete the EKS cluster:  
