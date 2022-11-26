@@ -82,12 +82,13 @@ pipeline {
 //                sh 'ls -lh ./myapp/values.yaml'
 //                sh 'yq'
 //                sleep 2
-                sh 'find / -iname values.yaml'
-//                dir('/home/jenkins/workspace/ec2/helm-lab/') {
-//                sh """'yq -i '"'"'.image.repository |= \"$DOCKER_REGISTRY\"'"'"' ./myapp-helm/values.yaml'"""
-//                sh """'yq -i '"'"'.image.tag = \\\"${currentBuild.number}.0\\\"'"'"' ./myapp-helm/values.yaml'"""
+//                sh 'find / -iname values.yaml'
+                dir('/home/jenkins/workspace/john_bryce_lab05/myapp-helm/') {
+                sh """'yq -i '"'"'.image.repository |= \"$DOCKER_REGISTRY\"'"'"' values.yaml'"""
+                sh """'yq -i '"'"'.image.tag = \\\"${currentBuild.number}.0\\\"'"'"' values.yaml'"""
 //                sleep 2
-//                sh 'cat values.yaml'
+                sh 'cat values.yaml'
+                }
             }
         }
     }
