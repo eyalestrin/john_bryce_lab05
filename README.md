@@ -60,7 +60,9 @@
 1. Edit the **Jenkinsfile** on the GitHub repository
 2. Update the value **DOCKER_REGISTRY**, with your target DockerHub repository
 3. Update the value **git url**, with the target GIT repository
-4. Update the value /home/jenkins/workspace/**john_bryce_lab05**/myapp-helm/, with your target Jenkins pipeline job name
+4. Update the value /home/jenkins/workspace/**john_bryce_lab05**/myapp-helm/, with your target Jenkins pipeline job name (appears twice)
+5. Update the value of **user.name**, with your target account full name
+6. Update the value of **user.email**, with your target account email address
 
 ## Create a Jenkins pipeline
 1. Login to Jenkins console
