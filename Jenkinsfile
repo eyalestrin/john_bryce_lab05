@@ -61,11 +61,6 @@ pipeline {
         }
         stage('Install yq package') {
             steps {
-//                sh 'curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | tee /usr/share/keyrings/helm.gpg > /dev/null'
-//                sh 'apt-get install apt-transport-https --yes'
-//                sh 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | tee /etc/apt/sources.list.d/helm-stable-debian.list'
-//                sh 'apt-get update'
-//                sh 'apt-get install helm'
                 sh 'apt install wget'
                 sh 'wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64'
                 sh 'chmod a+x /usr/local/bin/yq'
@@ -73,26 +68,13 @@ pipeline {
         }
         stage('Edit Helm chart') {
             steps {
-//                sh 'helm create myapp-helm'
-//                sh 'cd myapp'
                 sh 'pwd'
                 sh 'echo $HOME'
-//                sh 'cat ./myapp/values.yaml'
-//                sh 'echo $HOME'
-//                sh 'ls -lh ./myapp/values.yaml'
-//                sh 'yq'
-//                sleep 2
-//                sh 'find / -iname values.yaml'
                 dir('/home/jenkins/workspace/john_bryce_lab05/myapp-helm/') {
                 sh (script : """ yq -i \'.image.repository = \"$DOCKER_REGISTRY\"\' values.yaml """, returnStdout: false)
                 sh (script : """ yq -i \'.image.tag = \"${currentBuild.number}.0\"\' values.yaml """, returnStdout: false)
-                
-//                sh (script : """'yq -i '"'"'.image.tag = \\\"${currentBuild.number}.0\\\"'"'"' values.yaml'""")
-//                sh """'yq -i '"'"'.image.repository |= \"$DOCKER_REGISTRY\"'"'"' values.yaml'"""
-//                sh """'yq -i '"'"'.image.tag = \\\"${currentBuild.number}.0\\\"'"'"' values.yaml'"""
-//                sleep 2
-                sh (script : """ cat values.yaml | grep repository """)
-                sh (script : """ cat values.yaml | grep tag """)
+//                sh (script : """ cat values.yaml | grep repository """)
+//                sh (script : """ cat values.yaml | grep tag: """)
                 }
             }
         }
