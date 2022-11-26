@@ -45,6 +45,9 @@ spec:
             httpGet:
               path: /
               port: http
+          envFrom:
+          - configMapRef:
+              name: env-configmap
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
