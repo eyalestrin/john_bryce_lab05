@@ -11,6 +11,7 @@ pipeline {
         DOCKER_REGISTRY = "eyales/johnbryce"
         DOCKERHUB_CREDENTIALS = credentials('dockerhub_id')
         dockerImage = ''
+        GITHUB_CREDENTIALS = credentials('github')
     }
     stages {
         stage('Init Cleanup') {
@@ -24,7 +25,7 @@ pipeline {
         stage('SCM Step') {
             steps {
                 echo "Pulling code from GitHub"
-                git url: 'https://github.com/eyalestrin/john_bryce_lab05.git', branch: 'master'
+                git url: 'https://github.com/eyalestrin/john_bryce_lab05.git', branch: 'dev'
             }
         }
         stage('Build Step') {
