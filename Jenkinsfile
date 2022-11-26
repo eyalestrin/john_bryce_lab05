@@ -74,7 +74,6 @@ pipeline {
 //                sh 'echo $HOME'
 //                sh 'echo ${currentBuild.projectName}'
                 dir('/home/jenkins/workspace/john_bryce_lab05/myapp-helm/') {
-//                dir('/home/jenkins/workspace/\$WORKSPACE_FOLDER/myapp-helm/') {
                 sh (script : """ yq -i \'.image.repository = \"$DOCKER_REGISTRY\"\' values.yaml """, returnStdout: false)
                 sh (script : """ yq -i \'.image.tag = \"${currentBuild.number}.0\"\' values.yaml """, returnStdout: false)
 //                sh (script : """ cat values.yaml | grep repository """)
