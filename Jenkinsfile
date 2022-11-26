@@ -59,13 +59,13 @@ pipeline {
                 sh (script : """docker push $DOCKER_REGISTRY:${currentBuild.number}.0""", returnStdout: false)
             }
         }
-        stage('Install Helm package and yq') {
+        stage('Install yq package') {
             steps {
-                sh 'curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | tee /usr/share/keyrings/helm.gpg > /dev/null'
-                sh 'apt-get install apt-transport-https --yes'
-                sh 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | tee /etc/apt/sources.list.d/helm-stable-debian.list'
-                sh 'apt-get update'
-                sh 'apt-get install helm'
+//                sh 'curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | tee /usr/share/keyrings/helm.gpg > /dev/null'
+//                sh 'apt-get install apt-transport-https --yes'
+//                sh 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | tee /etc/apt/sources.list.d/helm-stable-debian.list'
+//                sh 'apt-get update'
+//                sh 'apt-get install helm'
                 sh 'apt install wget'
                 sh 'wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64'
                 sh 'chmod a+x /usr/local/bin/yq'
@@ -73,7 +73,7 @@ pipeline {
         }
         stage('Edit Helm chart') {
             steps {
-                sh 'helm create myapp-helm'
+//                sh 'helm create myapp-helm'
 //                sh 'cd myapp'
                 sh 'pwd'
                 sh 'echo $HOME'
@@ -81,12 +81,13 @@ pipeline {
 //                sh 'echo $HOME'
 //                sh 'ls -lh ./myapp/values.yaml'
 //                sh 'yq'
-                sleep 2
+//                sleep 2
+                sh 'find / -iname values.yaml'
 //                dir('/home/jenkins/workspace/ec2/helm-lab/') {
-                sh """'yq -i '"'"'.image.repository |= \"$DOCKER_REGISTRY\"'"'"' ./myapp-helm/values.yaml'"""
-                sh """'yq -i '"'"'.image.tag = \\\"${currentBuild.number}.0\\\"'"'"' ./myapp-helm/values.yaml'"""
-                sleep 2
-                sh 'cat values.yaml'
+//                sh """'yq -i '"'"'.image.repository |= \"$DOCKER_REGISTRY\"'"'"' ./myapp-helm/values.yaml'"""
+//                sh """'yq -i '"'"'.image.tag = \\\"${currentBuild.number}.0\\\"'"'"' ./myapp-helm/values.yaml'"""
+//                sleep 2
+//                sh 'cat values.yaml'
             }
         }
     }
