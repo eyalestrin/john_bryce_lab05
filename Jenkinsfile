@@ -72,7 +72,7 @@ pipeline {
             steps {
 //                sh 'pwd'
 //                sh 'echo $HOME'
-                sh 'echo ${currentBuild.projectName}'
+//                sh 'echo ${currentBuild.projectName}'
                 dir('/home/jenkins/workspace/john_bryce_lab05/myapp-helm/') {
 //                dir('/home/jenkins/workspace/\$WORKSPACE_FOLDER/myapp-helm/') {
                 sh (script : """ yq -i \'.image.repository = \"$DOCKER_REGISTRY\"\' values.yaml """, returnStdout: false)
