@@ -60,6 +60,8 @@ pipeline {
         stage('Push image to DockerHub') { 
             steps {
                 sh (script : """docker push $DOCKER_REGISTRY:${currentBuild.number}.0""", returnStdout: false)
+		sleep 2
+		sh 'docker logout'
             }
         }
         stage('Install yq package') {
@@ -95,11 +97,11 @@ pipeline {
 //}
 
 //    }
-	post {
-        always {
-		    sh 'docker logout'
-		}
+//	post {
+//        always {
+//		    sh 'docker logout'
+//		}
 
-}
+//}
 }
 }
