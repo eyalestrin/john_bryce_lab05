@@ -91,13 +91,17 @@
 ## ArgoCD
 1. Create a new namespace:  
   **<code>kubectl create namespace argocd</code>**  
-2. Install ArgCD using the command below:  
+2. Install argocli:  
+  **<code>wget https://github.com/argoproj/argo-cd/releases/download/v1.6.1/argocd-linux-amd64</code>**  
+  **<code>sudo mv argocd-linux-amd64 /bin/argocd</code>**  
+  **<code>sudo chmod +x /bin/argocd</code>**  
+3. Install ArgCD using the command below:  
   **<code>kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml</code>**  
-3. Change the argocd services to type loadbalancer using kubectl PATCH:  
+4. Change the argocd services to type loadbalancer using kubectl PATCH:  
   **<code>kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'</code>**  
-4. Get the initial password (user is: **admin**):  
+5. Get the initial password (user is: **admin**):  
   **<code>kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut -d'/' -f 2</code>**  
-5. Create a GitHub webhook, as instructed below:  
+6. Create a GitHub webhook, as instructed below:  
   https://argo-cd.readthedocs.io/en/stable/operator-manual/webhook/#1-create-the-webhook-in-the-git-provider  
 
 ## Delete Amazon EKS Cluster
