@@ -89,9 +89,12 @@ pipeline {
             steps {
             	script {
                 	withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
-				sh (script: """ git commit -m \"Updating Docker version ${currentBuild.number}.0\" """)
+				sh (script : """ git config --global user.name \"Eyal Estrin\" """)
+				sh (script : """ git config --global user.email eyal.estrin@gmail.com """)
+				sh (script : """ git commit -m \"Updating Docker version ${currentBuild.number}.0\" """)
 //				sh 'git commit -m \\"Updating Docker version ${currentBuild.number}.0\\"'
-                		sh 'git push origin master'
+				sh (script : """ git push origin master """)
+//                		sh 'git push origin master'
 			}
 		}
            }
