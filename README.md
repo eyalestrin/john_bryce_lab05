@@ -126,7 +126,7 @@
   * Revision: HEAD  
   * Path: Select your helm-chart path from the list  
   * Cluster URL: Select the default value  
-  * Namespace: Specify your target helm-chart name  
+  * Namespace: **argocd**  
   * Click Create  
   * Click Sync -> click on Synchronize  
 
