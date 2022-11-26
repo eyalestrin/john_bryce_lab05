@@ -69,3 +69,46 @@
 2. Follow the instructions in the video below to configure Jenkins pipeline from GitHub repository:  
    https://www.youtube.com/watch?v=56jtwSrNvrs  
    Note: On **"Branch Specifier"** value, change to ***/dev**
+
+## Install Kubectl
+* Install and Set Up kubectl on Windows:  
+  https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/
+* Install and Set Up kubectl on Linux:  
+  https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+* Install and Set Up kubectl on macOS:  
+  https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/
+
+## Install Amazon Elastic Kubernetes Service (EKS) cluster:
+1. Installing eksctl:  
+  https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html
+2. Create EKS cluster using eksctl (select "Managed nodes - Linux"):  
+  https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html#create-cluster-gs-eksctl
+3. Check EKS cluster status:  
+  **<code>aws eks --region us-east-1 describe-cluster --name my-eks-cluster --query cluster.status</code>**  
+4. Add a context for EKS cluster in Kube config of the machine:  
+  **<code>aws eks --region us-east-1 update-kubeconfig --name my-eks-cluster</code>** 
+
+## ArgoCD
+1. Create a new namespace:  
+  **<code>kubectl create namespace argocd</code>**  
+2. Install argocli:  
+  **<code>wget https://github.com/argoproj/argo-cd/releases/download/v1.6.1/argocd-linux-amd64</code>**  
+  **<code>sudo mv argocd-linux-amd64 /bin/argocd</code>**  
+  **<code>sudo chmod +x /bin/argocd</code>**  
+3. Install ArgCD using the command below:  
+  **<code>kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml</code>**  
+4. Change the argocd services to type loadbalancer using kubectl PATCH:  
+  **<code>kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'</code>**  
+5. Get the initial password (user is: **admin**):  
+  **<code>kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d</code>**  
+6. Get the ArgoCD load-balancer DNS name:  
+  **<code>kubectl get svc argocd-server -n argocd</code>**  
+7. Login to the ArgoCD server:  
+  https://[argocd_load-balancer_DNS_name]  
+  Note: Replace **[argocd_load-balancer_DNS_name]** with the target load-balancer DNS address  
+8. Create a GitHub webhook, on the settings page of the current GitHub repository, as instructed below:  
+  https://argo-cd.readthedocs.io/en/stable/operator-manual/webhook/#1-create-the-webhook-in-the-git-provider  
+
+## Delete Amazon EKS Cluster
+Follow the instructions below to delete the EKS cluster:  
+https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html#gs-eksctl-clean-up
