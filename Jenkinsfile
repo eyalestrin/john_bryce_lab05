@@ -117,7 +117,7 @@ pipeline {
 				dir('/home/jenkins/workspace/john_bryce_lab05/myapp-helm/templates') {
 				sh (script : """ git config --global user.name \"Eyal Estrin\" """)
 				sh (script : """ git config --global user.email eyal.estrin@gmail.com """)
-				sh (script : """ git checkout master """)
+//				sh (script : """ git checkout master """)
 				sh (script : """ git add . """)
 				sh (script : """ git commit -m \"Updating AWS Region code\" """)
 				sh (script : """ git push origin master """)
