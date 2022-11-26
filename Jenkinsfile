@@ -51,7 +51,7 @@ pipeline {
                 sh "docker logs myapp"
             }
         }
-        stage('DockerHub Login') {
+        stage('Docker Login') {
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin '
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin  ' 
@@ -82,5 +82,23 @@ pipeline {
                 }
             }
         }
+
+        stage('Git Push to Master'){
+        steps{
+            script{
+                withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')])
+                sh 'git commit -am '"'"'Update Docker image to version ${currentBuild.number}.0'"'"''
+                sh 'git push origin master'
+            }
+        }
     }
+    }
+
+    }
+	post {
+        always {
+		    sh 'docker logout'
+		}
+    }
+
 }
