@@ -87,3 +87,9 @@
   **<code>aws eks --region us-east-1 describe-cluster --name my-eks-cluster --query cluster.status</code>**  
 4. Add a context for EKS cluster in Kube config of the machine:  
   **<code>aws eks --region us-east-1 update-kubeconfig --name my-eks-cluster</code>** 
+
+## ArgoCD...
+
+## Delete Amazon EKS Cluster
+Follow the instructions below to delete the EKS cluster:  
+https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html#gs-eksctl-clean-up
