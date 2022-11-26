@@ -101,7 +101,9 @@
   **<code>kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'</code>**  
 5. Get the initial password (user is: **admin**):  
   **<code>kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut -d'/' -f 2</code>**  
-6. Create a GitHub webhook, as instructed below:  
+6. Get the ArgoCD load-balancer DNS name:  
+  **<code>kubectl get services -n argocd | grep LoadBalancer</code>**  
+7. Create a GitHub webhook, as instructed below:  
   https://argo-cd.readthedocs.io/en/stable/operator-manual/webhook/#1-create-the-webhook-in-the-git-provider  
 
 ## Delete Amazon EKS Cluster
