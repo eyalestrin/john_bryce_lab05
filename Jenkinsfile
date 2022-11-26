@@ -89,12 +89,14 @@ pipeline {
             steps {
             	script {
                 	withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
+				dir('/home/jenkins/workspace/john_bryce_lab05/myapp-helm/') {
 				sh (script : """ git config --global user.name \"Eyal Estrin\" """)
 				sh (script : """ git config --global user.email eyal.estrin@gmail.com """)
 				sh (script : """ git commit -m \"Updating Docker version ${currentBuild.number}.0\" """)
 //				sh 'git commit -am \\"Updating Docker version ${currentBuild.number}.0\\"'
 				sh (script : """ git push origin master """)
 //                		sh 'git push origin master'
+				}
 			}
 		}
            }
