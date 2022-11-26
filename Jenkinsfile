@@ -83,16 +83,16 @@ pipeline {
             }
         }
 
-        stage('Git Push to Master'){
-        steps{
-            script{
-                withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')])
-                sh 'git commit -am '"'"'Update Docker image to version ${currentBuild.number}.0'"'"''
-                sh 'git push origin master'
-            }
-        }
+        stage('Git Push to Master') {
+            steps {
+            	script{
+                	withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')])
+                	sh 'git commit -am '"'"'Update Docker image to version ${currentBuild.number}.0'"'"''
+                	sh 'git push origin master'
+            	}
+	}
     }
-    }
+//    }
 
     }
 	post {
