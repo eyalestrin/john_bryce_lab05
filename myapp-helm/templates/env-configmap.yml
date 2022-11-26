@@ -5,5 +5,5 @@ kind: ConfigMap
 metadata:
   name: env-configmap
 data:
-  REGION: us-east-1
-  INTERVAL: 300
+  REGION: "us-east-1"
+  INTERVAL: "300"
