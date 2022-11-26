@@ -3,10 +3,13 @@ pipeline {
     parameters {
         string defaultValue: '300', name: 'INTERVAL'
         string defaultValue: 'us-east-1', name: 'REGION'
+        string defaultValue: 'eyales/johnbryce', name: 'DOCKER_REGISTRY'
+        string defaultValue: 'https://github.com/eyalestrin/john_bryce_lab05.git', name: 'GIT URL'
     }
     environment {
         AWS_CREDENTIALS = credentials('credentials')
-        DOCKER_REGISTRY = "eyales/johnbryce"
+//        DOCKER_REGISTRY = "eyales/johnbryce"
+        DOCKER_REGISTRY = ${params.DOCKER_REGISTRY}
         DOCKERHUB_CREDENTIALS = credentials('dockerhub_id')
         dockerImage = ''
     }
