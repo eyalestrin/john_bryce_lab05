@@ -75,6 +75,11 @@ pipeline {
                 sh (script : """ yq -i \'.image.repository = \"$DOCKER_REGISTRY\"\' values.yaml """, returnStdout: false)
                 sh (script : """ yq -i \'.image.tag = \"${currentBuild.number}.0\"\' values.yaml """, returnStdout: false)
                 }
+                dir('/home/jenkins/workspace/john_bryce_lab05/myapp-helm/templates/') {
+                sh (script : """ yq -i \'.data.REGION = \"${params.REGION}\"\' env-configmap.yml """, returnStdout: false)
+		sh (script : """ yq -i \'.data.INTERVAL = \"${params.INTERVAL}\"\' env-configmap.yml """, returnStdout: false)
+                }
+
             }
         }
 
@@ -82,12 +87,20 @@ pipeline {
             steps {
             	script {
                 	withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
-				dir('/home/jenkins/workspace/john_bryce_lab05/myapp-helm/') {
 				sh (script : """ git config --global user.name \"Eyal Estrin\" """)
 				sh (script : """ git config --global user.email eyal.estrin@gmail.com """)
 				sh (script : """ git checkout master """)
+				dir('/home/jenkins/workspace/john_bryce_lab05/myapp-helm/') {
+//				sh (script : """ git config --global user.name \"Eyal Estrin\" """)
+//				sh (script : """ git config --global user.email eyal.estrin@gmail.com """)
+//				sh (script : """ git checkout master """)
 				sh (script : """ git add . """)
 				sh (script : """ git commit -m \"Updating Docker version ${currentBuild.number}.0\" """)
+				sh (script : """ git push origin master """)
+				}
+				dir('/home/jenkins/workspace/john_bryce_lab05/myapp-helm/templates') {
+				sh (script : """ git add . """)
+				sh (script : """ git commit -m \"Updating AWS Region code\" """)
 				sh (script : """ git push origin master """)
 				}
 			}
