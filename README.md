@@ -106,6 +106,7 @@
   **<code>kubectl get svc argocd-server -n argocd</code>**  
 7. Create a GitHub webhook, on the settings page of the current GitHub repository, as instructed below:  
   https://argo-cd.readthedocs.io/en/stable/operator-manual/webhook/#1-create-the-webhook-in-the-git-provider  
+  Note: Use your ArgoCD load-balancer DNS name and add **/api/webhook**  
 8. Login to the ArgoCD server:  
   https://[argocd_load-balancer_DNS_name]  
   Note: Replace **[argocd_load-balancer_DNS_name]** with the target load-balancer DNS address  
@@ -114,7 +115,8 @@
   * Choose your connection method: Select **VIA HTTPS**  
   * Type: **git**  
   * Project: **default**  
-  * Repository URL: Specify your GIT repository (for example: https://github.com/eyalestrin/john_bryce_lab05.git)
+  * Repository URL: Specify your GIT repository (for example: https://github.com/eyalestrin/john_bryce_lab05.git)  
+  * Select "Skip server verification"  
   * Click Connect
   Note: The "Connection Status" should be "Successful"  
 10. Create an Application in Argo CD Defined By a Helm Chart:  
@@ -129,6 +131,15 @@
   * Namespace: **argocd**  
   * Click Create  
   * Click Sync -> click on Synchronize  
+
+
+## Uninstall ArgoCD server
+1. Run the command below to uninstall the ArgoCD server:  
+  **<code>kubectl delete -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml</code>**  
+2. Remove the ArgoCD namespace:  
+  **<code>kubectl delete namespace argocd</code>**  
+3. Remove the Webhook from GitHub repository:  
+  * On the settings page of the current GitHub repository, locate the webhook and click Delete  
 
 ## Delete Amazon EKS Cluster
 Follow the instructions below to delete the EKS cluster:  
