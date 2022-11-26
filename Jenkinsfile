@@ -3,7 +3,6 @@ pipeline {
     parameters {
         string defaultValue: '300', name: 'INTERVAL'
         string defaultValue: 'us-east-1', name: 'REGION'
-//        string defaultValue: 'john_bryce_lab05', name: 'WORKSPACE_FOLDER'
     }
     environment {
         AWS_CREDENTIALS = credentials('credentials')
@@ -73,7 +72,7 @@ pipeline {
                 sh 'pwd'
                 sh 'echo $HOME'
 //                dir('/home/jenkins/workspace/john_bryce_lab05/myapp-helm/') {
-                dir('/home/jenkins/workspace/$WORKSPACE_FOLDER/myapp-helm/') {
+                dir('/home/jenkins/workspace/\$WORKSPACE_FOLDER/myapp-helm/') {
                 sh (script : """ yq -i \'.image.repository = \"$DOCKER_REGISTRY\"\' values.yaml """, returnStdout: false)
                 sh (script : """ yq -i \'.image.tag = \"${currentBuild.number}.0\"\' values.yaml """, returnStdout: false)
 //                sh (script : """ cat values.yaml | grep repository """)
