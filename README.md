@@ -69,3 +69,21 @@
 2. Follow the instructions in the video below to configure Jenkins pipeline from GitHub repository:  
    https://www.youtube.com/watch?v=56jtwSrNvrs  
    Note: On **"Branch Specifier"** value, change to ***/dev**
+
+## Install Kubectl
+* Install and Set Up kubectl on Windows:  
+  https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/
+* Install and Set Up kubectl on Linux:  
+  https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+* Install and Set Up kubectl on macOS:  
+  https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/
+
+## Install Amazon Elastic Kubernetes Service (EKS) cluster:
+1. Installing eksctl:  
+  https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html
+2. Create EKS cluster using eksctl (select "Managed nodes - Linux"):  
+  https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html#create-cluster-gs-eksctl
+3. Check EKS cluster status:  
+  **<code>aws eks --region us-east-1 describe-cluster --name my-eks-cluster --query cluster.status</code>**  
+4. Add a context for EKS cluster in Kube config of the machine:  
+  **<code>aws eks --region us-east-1 update-kubeconfig --name my-eks-cluster</code>** 
