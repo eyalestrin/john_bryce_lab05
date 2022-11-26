@@ -46,7 +46,8 @@
 
 ## Updating DockerHub repository
 1. Edit the **Jenkinsfile** on the GitHub repository
-2. Update the value **DOCKER_REGISTRY** with your target repository
+2. Update the value **DOCKER_REGISTRY** with your target DockerHub repository
+3. Update the value **git url** with the target GIT repository
 
 ## Create a Jenkins pipeline
 1. Login to Jenkins console
