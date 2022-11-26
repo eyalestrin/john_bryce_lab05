@@ -89,7 +89,7 @@ pipeline {
             steps {
             	script {
                 	withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
-                		sh 'git commit -m \\\"Updating Docker version ${currentBuild.number}.0\\\"'
+                		sh 'git commit -m \"Updating Docker version ${currentBuild.number}.0\"'
                 		sh 'git push origin master'
 			}
 		}
