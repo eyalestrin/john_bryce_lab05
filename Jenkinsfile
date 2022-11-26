@@ -83,7 +83,7 @@ pipeline {
             }
         }
 
-        stage('Git Push to Master') {
+        stage('Git Push to Master - Build number') {
             steps {
             	script {
                 	withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
@@ -108,6 +108,10 @@ pipeline {
 //				}
 			}
 		}
+           }
+	}
+        stage('Git Push to Master - Region code') {
+            steps {
             	script {
                 	withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
 				dir('/home/jenkins/workspace/john_bryce_lab05/myapp-helm/templates') {
