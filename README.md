@@ -92,7 +92,7 @@
 1. Create a new namespace:  
   **<code>kubectl create namespace argocd</code>**  
 2. Install ArgCD using the command below:  
-  **<code>kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo cd/stable/manifests/install.yaml</code>**  
+  **<code>kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml</code>**  
 3. Change the argocd services to type loadbalancer using kubectl PATCH:  
   **<code>kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'</code>**  
 4. Get the initial password (user is: **admin**):  
