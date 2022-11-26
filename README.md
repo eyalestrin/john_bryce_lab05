@@ -44,6 +44,18 @@
    ID: **dockerhub_id**
 4. Click OK
 
+## Uploading GitHub access token to Jenkins
+1. Create a GitHub access token, as instructed below:  
+   https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
+2. Login to Jenkins console
+3. Follow the instructions below to add a new global credentials:  
+   https://www.jenkins.io/doc/book/using/using-credentials/#adding-new-global-credentials  
+   Credential type: **Username and password**  
+   Username: Specify your GitHub username.  
+   Password: Specify your GitHub access token.  
+   ID: **github**
+4. Click OK
+
 ## Updating DockerHub repository
 1. Edit the **Jenkinsfile** on the GitHub repository
 2. Update the value **DOCKER_REGISTRY**, with your target DockerHub repository
