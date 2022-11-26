@@ -109,7 +109,7 @@ pipeline {
 			}
 		}
            }
-	}
+//	}
 //        stage('Git Push to Master - Region code') {
 //            steps {
 //            	script {
