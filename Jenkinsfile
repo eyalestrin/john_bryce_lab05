@@ -84,8 +84,10 @@ pipeline {
 //                sleep 2
 //                sh 'find / -iname values.yaml'
                 dir('/home/jenkins/workspace/john_bryce_lab05/myapp-helm/') {
-                sh """'yq -i '"'"'.image.repository |= \"$DOCKER_REGISTRY\"'"'"' values.yaml'"""
-                sh """'yq -i '"'"'.image.tag = \\\"${currentBuild.number}.0\\\"'"'"' values.yaml'"""
+                sh (script : """'yq -i '"'"'.image.repository |= \"$DOCKER_REGISTRY\"'"'"' values.yaml'""")
+                sh (script : sh """'yq -i '"'"'.image.tag = \\\"${currentBuild.number}.0\\\"'"'"' values.yaml'""")
+//                sh """'yq -i '"'"'.image.repository |= \"$DOCKER_REGISTRY\"'"'"' values.yaml'"""
+//                sh """'yq -i '"'"'.image.tag = \\\"${currentBuild.number}.0\\\"'"'"' values.yaml'"""
 //                sleep 2
                 sh 'cat values.yaml'
                 }
